@@ -1,6 +1,14 @@
 [package]
-name = "lib"
+name = "YADQL"
 version = "0.1.0"
-authors = ["Sean Batzel <romulus108@protonmail.com>"]
+authors = [
+  "Sean Batzel <romulus108@protonmail.com>",
+  "Andrew Plaza <aplaza@liquidthink.net"
+]
+build = "src/build.rs"
 
 [dependencies]
+colored = "1.5.2"
+
+[build-dependencies]
+peg = "0.5.4"
