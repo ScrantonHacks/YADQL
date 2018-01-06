@@ -10,6 +10,8 @@ use std::error::Error;
 use colored::Colorize;
 
 use parser::parser::Parser;
+use parser::parser::ParserError;
+
 /*
 #[cfg(test)]
 mod tests {
@@ -21,22 +23,35 @@ mod tests {
 */
 
 mod yadql {
+    use super::Parser;
+    use super::Error;
+    use super::Colorize;
+    use super::process;
 
-    struct yadql;
-    impl yadql {
-        fn execute(&self, statement: str) -> str {
-            let cmd = parse(statement);
-            let ret = '';
-            match cmd.OP {
-                YADQL::Insert => Blockchain.insert(cmd.arg0, cmd.arg1),
-                YADQL::Delete => Blockchain.delete(cmd.arg0),
-                YADQL::Update => Blockchain.update(cmd.arg0, cmd.arg1),
-                YADQL::Read => {
-                    ret = Blockchain.read(cmd.arg0);
-                },
+    fn parse(query: &str) -> Parser {
+        match Parser::new(query) {
+            Ok(x) => x,
+            Err(e) => {
+                println!("Error!: {}, {}", 
+                        e.description().red().bold(), e.to_string()
+                );
+                process::exit(1);
             }
-            ret
         }
+    }
+
+    fn execute(statement: &str) -> String {
+        let parser: Parser = parse(statement);
+        let ret: String;
+        match cmd.OP {
+            YADQL::Insert => Blockchain.insert(cmd.arg0, cmd.arg1),
+            YADQL::Delete => Blockchain.delete(cmd.arg0),
+            YADQL::Update => Blockchain.update(cmd.arg0, cmd.arg1),
+            YADQL::Read => {
+                ret = Blockchain.read(cmd.arg0);
+            },
+        }
+        ret.to_string()
     }
 
     fn open() {

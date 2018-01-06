@@ -6,6 +6,7 @@
 /// Delete KEY      || Requires Gas
 /// Update KEY, VAL || Requires Gas
 /// READ KEY, VAL
+#[derive(Debug)]
 pub enum YADQL {
     Insert(String, String), // Insert Data On to the Blockchain,
     Delete(String),         // Delete data under a key from the Blockchain
