@@ -48,16 +48,14 @@ mod yadql {
     fn execute(statement: &str) -> String {
         let blockchain = Blockchain::new();
         let parser: Parser = parse(statement);
-        let ret: String;
-        match *parser.keywords.get(0).unwrap() {
+        let ret = match *parser.keywords.get(0).unwrap() {
             YADQL::Insert(ref k, ref v) => blockchain.insert(k, v),
             YADQL::Delete(ref k) => blockchain.delete(k),
             YADQL::Update(ref k, ref v) => blockchain.update(k, v),
-            YADQL::Read(k) => {
-                ret = blockchain.read(&k).unwrap();
-            },
-        }
-        ret.to_string()
+            YADQL::Read(ref k) => blockchain.read(k),
+            _ => panic!("Nothing read in query!")
+        };
+        return ret.unwrap().payload;
     }
 
     fn open() {
