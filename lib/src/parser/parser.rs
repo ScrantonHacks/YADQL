@@ -32,10 +32,31 @@ impl fmt::Display for Parser {
     }
 }
 
+
+//TODO: improve tests
 #[cfg(test)]
 #[test]
 fn test_parser() {
     let parser = match Parser::new("INSERT $RAND '{'yo': 42}';") {
+        Ok(s) => s,
+        Err(e) => panic!("{}", e),
+    };
+
+    println!("ParserDEBUG: {}", parser.to_string());
+
+    let parser = match Parser::new("DELETE $RAND; asdfasd") {
+        Ok(s) => s,
+        Err(e) => panic!("{}", e),
+    };
+    println!("ParserDEBUG: {}", parser.to_string());
+    
+    let parser = match Parser::new("UPDATE $RAND '{'yo': 42}';") {
+        Ok(s) => s,
+        Err(e) => panic!("{}", e),
+    };
+    println!("ParserDEBUG: {}", parser.to_string());
+
+    let parser = match Parser::new("READ $RAND;") {
         Ok(s) => s,
         Err(e) => panic!("{}", e),
     };
