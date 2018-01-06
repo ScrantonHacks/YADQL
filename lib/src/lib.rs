@@ -1,10 +1,12 @@
 #[macro_use]
 extern crate serde_derive;
 extern crate colored;
+extern crate gpgme;
 
 mod core;
 mod parser;
 mod blockchain;
+mod crypt;
 
 use std::process;
 use std::error::Error;
