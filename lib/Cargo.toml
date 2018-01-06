@@ -3,7 +3,7 @@ name = "YADQL"
 version = "0.1.0"
 authors = [
   "Sean Batzel <romulus108@protonmail.com>",
-  "Andrew Plaza <aplaza@liquidthink.net"
+  "Andrew Plaza <aplaza@liquidthink.net>"
 ]
 build = "src/build.rs"
 
