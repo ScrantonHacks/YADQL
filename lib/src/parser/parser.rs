@@ -35,7 +35,7 @@ impl fmt::Display for Parser {
 #[cfg(test)]
 #[test]
 fn test_parser() {
-    let parser = match Parser::new("src/parser/YADQL.test") {
+    let parser = match Parser::new("INSERT $RAND '{'yo': 42}'") {
         Ok(s) => s,
         Err(e) => panic!("{}", e),
     };
