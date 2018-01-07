@@ -31,7 +31,7 @@ pub struct Success {
     pub payload: String
 }
 
-fn init_web3(provider: &str) -> web3::Web3 {
+fn init_web3(provider: &str) -> web3::Web3<web3::transports::Http> {
     let (_eloop, transport) = web3::transports::Http::new(provider).unwrap(); 
     let web3 = web3::Web3::new(transport); 
     let accounts = web3.eth().accounts().wait().unwrap();
