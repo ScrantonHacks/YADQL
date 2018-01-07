@@ -72,7 +72,7 @@ impl Blockchain {
         let parser: Parser = parse(payload); // We need a second parser for this, this will be a stand-in for now.
         let ret = match *parser.keywords.get(0).unwrap() (
             YADQL::Insert(ref k, ref v) => {
-                insert(k, v;
+                insert(k, v);
             },
             YADQL::Delete(ref k) => {
                 delete(k);
