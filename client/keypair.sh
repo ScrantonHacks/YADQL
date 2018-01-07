@@ -12,5 +12,5 @@ cat >keyconf <<EOF
      Expire-Date: 0
      %commit
 EOF
-gpg --batch --gen-key foo
+gpg --batch --gen-key keyconf
 gpg --list-secret-keys
