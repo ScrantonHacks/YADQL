@@ -27,6 +27,7 @@ User identity will be a mechanic by which public keys are connected and assigned
 ### Under the Hood
 When a user adds a device to their identity on the YADQL smart contract, their client creates an RSA public/private keypair and registers the public key with the smart contract. When the device registers some piece of configuration data d, the data is packaged into a structure of the configuration:
 {
+    'operation': '',
     ‘key’: ‘’,
     ‘value’: ‘’,
 }
