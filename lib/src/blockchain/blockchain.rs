@@ -34,29 +34,34 @@ impl Blockchain {
         //! ## insert(key: &str, value: &str) -> Result<Success, BlockchainError>
         //! Inserts a new value into the blockchain.
         //! Should throw an error if the record already exists.
-        self.memory.push(KeyVal { key: key.to_string(), val: val.to_string() });
+        self.memory.push(KeyVal { key: key.to_string(), val: val.to_string() })?;
+        Ok(Success { payload: x.val })
     }
 
     pub fn delete(&self, key: &str) -> Result<Success, BlockchainError> {
         //! ## delete(key: &str) -> Result<Success, BlockchainError>
         //! Marks a record as deleted.
         //! Should fail if the record doesn't exist.
-        for x in self.memory.iter() {
+        let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
                 self.memory.remove(x);
+                Ok(Success { payload: x.key })
             }
-        }
+        };
+        ret
     }
 
     pub fn update(&self, key: &str, value: &str) -> Result<Success, BlockchainError> {
         //! ## update(key: &str, value: &str) -> Result<Success, BlockchainError>
         //! Updates a value in the local database and submits to the blockchain.
         //! Should fail if the record doesn't exist.
-        for x in self.memory.iter() {
+        let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
                 x.val = value.to_string();
+                Ok(Success { payload: x.val })
             }
-        }
+        };
+        ret
     }
 
     pub fn read(&self, key: &str) -> Result<Success, BlockchainError> {
@@ -65,7 +70,7 @@ impl Blockchain {
         //! Should fail if the record doesn't exist.
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
-                Ok(Success { payload: x.value })
+                Ok(Success { payload: x.val })
             }
         };
         ret
