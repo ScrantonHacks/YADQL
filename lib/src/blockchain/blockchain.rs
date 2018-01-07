@@ -76,7 +76,7 @@ impl<'a> Blockchain<'a> {
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
                 x.val = value.to_string();
-                Ok(Success { payload: x.val });
+                Ok(Success { payload: x });
             }
         };
         ret
@@ -88,11 +88,7 @@ impl<'a> Blockchain<'a> {
         //! Should fail if the record doesn't exist.
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
-<<<<<<< HEAD
-                Ok(Success { payload: x.val });
-=======
-                Success { payload: x.val }
->>>>>>> 36a50ce90a5576862d938efe0a6c088acdfa4055
+                Success { payload: x }
             }
         };
         Ok (ret)
