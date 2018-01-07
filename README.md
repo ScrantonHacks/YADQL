@@ -41,3 +41,6 @@ Which is then RSA-encrypted and hashed, and signed by the device. The smart cont
 ### Future Ideas
 * Add multiple layers of identity proof to verify access to an identity from a new device.
 * Create mobile apps to explore an identity's data on the blockchain.
+
+### Notes
+Unit testing will require a local keypair created with the email address `test@radical-yadql.io`.

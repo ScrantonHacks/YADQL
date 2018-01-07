@@ -6,6 +6,7 @@ extern crate gpgme;
 mod core;
 mod parser;
 mod blockchain;
+mod crypt;
 
 use std::process;
 use std::error::Error;
@@ -14,6 +15,7 @@ use colored::Colorize;
 use parser::parser::Parser;
 use core::keywords::YADQL;
 use blockchain::blockchain::Blockchain;
+use crypt::crypt::*;
 
 /*
 #[cfg(test)]
