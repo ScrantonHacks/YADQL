@@ -31,11 +31,11 @@ mod tests {
 }
 */
 
-pub struct Database {
-    blockchain: Blockchain,
+pub struct Database<'a> {
+    blockchain: Blockchain<'a>,
 }
 
-impl Database {
+impl<'a> Database<'a> {
 
     /// Constructor Function
     pub fn connect(provider: &str) -> Result<Database, BlockchainError> {
