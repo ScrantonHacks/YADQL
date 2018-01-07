@@ -2,11 +2,11 @@ use blockchain::blockchain::Blockchain;
 use core::keywords::YADQL;
 use crypt::crypt::Crypt;
 
-pub struct Stream<'a> {
-    blockchain: Blockchain<'a>,
+pub struct Stream {
+    blockchain: Blockchain,
 }
 
-impl<'a> Stream<'a> {
+impl Stream {
     pub fn new(provider: &str) -> Stream {
         let blockchain = Blockchain::new(provider);
 
@@ -15,7 +15,7 @@ impl<'a> Stream<'a> {
         }
     }
 
-    pub fn send(&self, operation: YADQL, key: &str, value: &str) {
+    pub fn send(&mut self, operation: YADQL, key: &str, value: &str) {
         //! ## send(operation: &str, key: &str, value: &str)
         //! Applies transactions being sent from this machine.
         //! It was late when I wrote this... needs fixing bad.
@@ -44,6 +44,7 @@ impl<'a> Stream<'a> {
             YADQL::Read(ref k) => {
                 self.blockchain.read(key);
             },
+            _ => panic!("I don't even know")
         };
     }
     

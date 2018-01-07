@@ -31,11 +31,11 @@ mod tests {
 }
 */
 
-pub struct Database<'a> {
-    blockchain: Blockchain<'a>,
+pub struct Database {
+    blockchain: Blockchain,
 }
 
-impl<'a> Database<'a> {
+impl Database {
 
     /// Constructor Function
     pub fn connect(provider: &str) -> Result<Database, BlockchainError> {
@@ -46,7 +46,7 @@ impl<'a> Database<'a> {
     }
 
     // TODO Accept multiple queries at a time
-    pub fn execute(&self, query: &str) -> String {
+    pub fn execute(&mut self, query: &str) -> String {
         let parser: Parser = Self::parse(query);
         let ret = match *parser.keywords.get(0).unwrap() {
             YADQL::Insert(ref k, ref v) => self.blockchain.insert(k, v),

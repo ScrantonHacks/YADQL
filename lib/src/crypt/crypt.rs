@@ -23,7 +23,7 @@ impl Crypt {
         let mode = gpgme::SignMode::Clear;
         let mut ctx = Context::from_protocol(proto).unwrap();
         ctx.set_armor(true);
-        let key = ctx.find_secret_key(self.our_key).unwrap();
+        let key = ctx.find_secret_key(self.our_key.clone()).unwrap();
         ctx.add_signer(&key).unwrap();
         let mut output = Vec::new();
         ctx.sign(mode, clear, &mut output).expect("signing failed");
@@ -50,7 +50,7 @@ impl Crypt {
         let mut ctx = Context::from_protocol(proto).unwrap();
         ctx.set_armor(true);
         let mut recipients = Vec::new();
-        recipients.push(self.our_key);
+        recipients.push(self.our_key.clone());
         let keys: Vec<gpgme::Key> = ctx.find_keys(recipients).unwrap().filter_map(Result::ok).filter(|k| k.can_encrypt()).collect();
         let mut output = Vec::new();
         ctx.encrypt(&keys, clear, &mut output).expect("encrypting failed");
