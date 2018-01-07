@@ -60,8 +60,9 @@ impl Blockchain {
     pub fn recv(&self) {
         //! ## recv()
         //! Applies transactions downloaded to this machine.
+        let next_query = ''; // Make sure we get this one from the EVM.
         let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
-        let payload = c.decrypt(c.verify(c));
+        let payload = c.decrypt(c.verify(next_query));
         // We get a string in the format "('operation': 'update', key: '{}', value: '{}' )"
         // We want to parse the operation, key, and value out of that.
         let re = Regex::new(r"^\('operation': '(.{6})', key: ('.+'), value: ('.*') \)$").unwrap();
