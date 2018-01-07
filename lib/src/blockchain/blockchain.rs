@@ -1,8 +1,11 @@
-pub struct Blockchain;
-struct Success;
-struct BlockchainError;
+use blockchain::err::BlockchainError;
 
-use crypt::crypt::*;
+pub struct Blockchain;
+pub struct Success {
+    pub payload: String
+}
+
+// use crypt::crypt::*;
 
 impl Blockchain {
     pub fn new() -> Blockchain {

@@ -8,16 +8,16 @@ value -> String
     = v:$([^;]+ ";") { v.to_string() }
 
 insert -> super::YADQL
-    = "Insert "i k:key " " v:value { super::YADQL::Insert(k, v) }
+    = "insert "i k:key " " v:value { super::YADQL::Insert(k, v) }
 
 delete -> super::YADQL
-    = "Delete "i k:key";" { super::YADQL::Delete(k) }
+    = "delete "i k:key";" { super::YADQL::Delete(k) }
 
 update -> super::YADQL
-    = "Update "i k:key " " v:value {super::YADQL::Update(k, v) }
+    = "update "i k:key " " v:value {super::YADQL::Update(k, v) }
 
 read -> super::YADQL
-    = "Read "i k:key";" { super::YADQL::Read(k) }
+    = "read "i k:key";" { super::YADQL::Read(k) }
 
 #[pub]
 content -> Vec<super::YADQL>
