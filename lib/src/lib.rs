@@ -15,7 +15,7 @@ use colored::Colorize;
 use parser::parser::Parser;
 use core::keywords::YADQL;
 use blockchain::blockchain::Blockchain;
-use crypt::crypt::*;
+use crypt::crypt::Crypt;
 
 /*
 #[cfg(test)]
