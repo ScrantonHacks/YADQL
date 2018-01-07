@@ -1,2 +1,4 @@
 lib/Cargo.lock
 client/keyconf
+client/Cargo.lock
+client/target
