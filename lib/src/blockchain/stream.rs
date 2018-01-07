@@ -1,6 +1,7 @@
 use blockchain::blockchain::Blockchain;
 use core::keywords::YADQL;
 use crypt::crypt::Crypt;
+use regex::{Regex, Captures};
 
 pub struct Stream {
     blockchain: Blockchain,
@@ -48,26 +49,24 @@ impl Stream {
         };
     }
     
-    /*
     pub fn recv(&self) {
         //! ## recv()
         //! Applies transactions downloaded to this machine.
         let next_query = String::new(); // This is a placeholder. Make sure we get this one from the EVM.
         let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
         let payload = c.decrypt(c.verify(next_query));
-        // We need to be able to parse ( 'operation': '', ‘key’: ‘’, ‘value’: ‘’ )
-        let parser: Parser = parse(payload); // We need a second parser for this, this will be a stand-in for now.
-        let ret = match *parser.keywords.get(0).unwrap() {
-            YADQL::Insert(ref k, ref v) => {
-                insert(k, v);
+        let r = Regex::new(r"`\('operation': '(.{6})', key: '(.+)', value: '(.*)' \)`").unwrap();
+        let re = r.captures(&payload).unwrap();
+        let ret = match re.get(1) {
+            YADQL::Insert(r.get(2), r.get(3)) => {
+                insert(r.get(2), r.get(3));
             },
-            YADQL::Delete(ref k) => {
-                delete(k);
+            YADQL::Delete(r.get(2)) => {
+                delete(r.get(2));
             },
-            YADQL::Update(ref k, ref v) => {
-                update(k, v);
+            YADQL::Update(r.get(2), r.get(3)) => {
+                update(r.get(2), r.get(3));
             },
-        }
+        };
     }
-    */
 }
