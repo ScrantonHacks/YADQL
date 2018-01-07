@@ -4,6 +4,9 @@ use regex::Regex;
 use crypt::crypt::Crypt;
 use core::keywords::YADQL;
 use parser::parser::Parser;
+use web3::futures::Future;
+use web3::contract::{Contract, Options};
+use web3::types::{Address, U256};
 
 struct KeyVal {
     /// # KeyVal
@@ -24,7 +27,11 @@ pub struct Success {
 impl Blockchain {
     //! # impl Blockchain
     //! Represents the current state of the blockchain. This honestly shouldn't care if we're submitting or receiving the queries; it should be able to handle upload as well as download. 
-    pub fn new() -> Blockchain {
+    pub fn new(provider: &str) -> Blockchain {
+        let (_eloop, transport) = web3::transports::Http::new("http://localhost:8545").unwrap(); 
+        let web3 = web3::Web3::new(transport); 
+        let accounts = web3.eth().accounts().wait().unwrap();
+
         Blockchain {
             memory: Vec::new()
         }

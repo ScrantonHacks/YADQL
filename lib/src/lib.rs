@@ -3,6 +3,7 @@ extern crate serde_derive;
 extern crate colored;
 extern crate gpgme;
 extern crate regex;
+extern crate web3;
 
 mod core;
 mod parser;
@@ -16,6 +17,7 @@ use colored::Colorize;
 use parser::parser::Parser;
 use core::keywords::YADQL;
 use blockchain::blockchain::Blockchain;
+use blockchain::err::BlockchainError;
 use crypt::crypt::Crypt;
 
 /*
@@ -28,13 +30,32 @@ mod tests {
 }
 */
 
-mod yadql {
-    use super::Parser;
-    use super::Error;
-    use super::Colorize;
-    use super::process;
-    use super::YADQL;
-    use super::Blockchain;
+pub struct Database {
+    blockchain: Blockchain,
+}
+
+impl Database {
+
+    /// Constructor Function
+    pub fn connect(provider: &str) -> Result<Database, BlockchainError> {
+    //    let blockchain = 
+        Database {
+            blockchain,
+        }
+    }
+
+    // TODO Accept multiple queries at a time
+    pub fn execute(&self, query: &str) -> String {
+        let parser: Parser = Self::parse(query);
+        let ret = match *parser.keywords.get(0).unwrap() {
+            YADQL::Insert(ref k, ref v) => self.blockchain.insert(k, v),
+            YADQL::Delete(ref k) => self.blockchain.delete(k),
+            YADQL::Update(ref k, ref v) => self.blockchain.update(k, v),
+            YADQL::Read(ref k) => self.blockchain.read(k),
+            _ => panic!("Nothing read in query!")
+        };
+        return ret.unwrap().payload;
+    }
 
     fn parse(query: &str) -> Parser {
         match Parser::new(query) {
@@ -46,23 +67,5 @@ mod yadql {
                 process::exit(1);
             }
         }
-    }
-    
-    // TODO Accept multiple queries at a time
-    fn execute(statement: &str) -> String {
-        let blockchain = Blockchain::new();
-        let parser: Parser = parse(statement);
-        let ret = match *parser.keywords.get(0).unwrap() {
-            YADQL::Insert(ref k, ref v) => blockchain.insert(k, v),
-            YADQL::Delete(ref k) => blockchain.delete(k),
-            YADQL::Update(ref k, ref v) => blockchain.update(k, v),
-            YADQL::Read(ref k) => blockchain.read(k),
-            _ => panic!("Nothing read in query!")
-        };
-        return ret.unwrap().payload;
-    }
-
-    fn open() {
-        unimplemented!();
     }
 }
