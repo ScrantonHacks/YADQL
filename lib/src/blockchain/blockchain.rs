@@ -27,7 +27,7 @@ pub struct Blockchain <'a>{
 
 pub struct Success {
     /// # Success
-    pub payload: String
+    pub payload: KeyVal
 }
 
 impl<'a> Blockchain<'a> {
@@ -68,10 +68,10 @@ impl<'a> Blockchain<'a> {
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
                 self.memory.remove(x);
-                Ok(Success { payload: x.key })
+                Success { payload: x }
             }
         };
-        ret
+        Ok(Success { payload: ret })
     }
 
     pub fn update(&self, key: &str, value: &str) -> Result<Success, BlockchainError> {
@@ -93,9 +93,9 @@ impl<'a> Blockchain<'a> {
         //! Should fail if the record doesn't exist.
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
-                Ok(Success { payload: x.val })
+                Success { payload: x.val }
             }
         };
-        ret
+        Ok (ret)
     }
 }
