@@ -65,9 +65,9 @@ impl Blockchain {
         //! Should fail if the record doesn't exist.
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
-                break Ok(Success { payload: x.value });
+                Ok(Success { payload: x.value })
             }
-        }
+        };
         ret
     }
 }
