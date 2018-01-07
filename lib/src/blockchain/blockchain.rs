@@ -76,7 +76,7 @@ impl<'a> Blockchain<'a> {
         let ret = for x in self.memory.iter() {
             if x.key == key.to_string() {
                 x.val = value.to_string();
-                Ok(Success { payload: x.val });
+                Ok(Success { payload: x });
             }
         };
         ret
@@ -86,11 +86,15 @@ impl<'a> Blockchain<'a> {
         //! ## read(key: &str) -> Result<Success, BlockchainError>
         //! A method on the Blockchain struct that reads data from memory into the application's context for use. This really just worries about the local mirror of the database; we really don't care about what the blockchain looks like.
         //! Should fail if the record doesn't exist.
-        let ret = for x in self.memory.iter() {
-            if x.key == key.to_string() {
-                Success { payload: x.val }
+        let it = self.memory.iter();
+        let ret;
+        'read: loop {
+            let curr = it.next().unwrap();
+            if curr.key == key.to_string() {
+                ret = Success { payload: *curr };
+                break 'read;
             }
-        };
+        }
         Ok (ret)
     }
 }
