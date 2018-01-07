@@ -26,11 +26,13 @@ User identity will be a mechanic by which public keys are connected and assigned
 
 ### Under the Hood
 When a user adds a device to their identity on the YADQL smart contract, their client creates an RSA public/private keypair and registers the public key with the smart contract. When the device registers some piece of configuration data d, the data is packaged into a structure of the configuration:
-{
+```
+(
     'operation': '',
     ‘key’: ‘’,
     ‘value’: ‘’,
-}
+)
+```
 Which is then RSA-encrypted and hashed, and signed by the device. The smart contract essentially acts as a ledger of all hashed and signed changes to every user’s device configurations. Upon download, the client verifies each signature by using the known public keys for the user’s identity, thereby determining which items it cares about. The verifiable hashes are decrypted and applied transactionally to the current local state of the device. If the device A cannot locally decrypt the data, it determines which device (B) owns the public key and requests the specific data be decrypted. Device B transmits the data back to device A, now re-encrypted for device A. Creation of OpenPGP keys will be up to the system or individual provisioning the device, and by default the system will look for a GPG key associated with the user's identity email.
 
 ### Use Cases

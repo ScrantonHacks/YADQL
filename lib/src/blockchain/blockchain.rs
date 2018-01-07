@@ -68,7 +68,7 @@ impl Blockchain {
         let next_query = String::new(); // This is a placeholder. Make sure we get this one from the EVM.
         let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
         let payload = c.decrypt(c.verify(next_query));
-        // We need to be able to parse { 'operation': '', ‘key’: ‘’, ‘value’: ‘’ }
+        // We need to be able to parse ( 'operation': '', ‘key’: ‘’, ‘value’: ‘’ )
         let parser: Parser = parse(payload); // We need a second parser for this, this will be a stand-in for now.
         let ret = match *parser.keywords.get(0).unwrap() (
             YADQL::Insert(ref k, ref v) => {
