@@ -1,13 +1,23 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.0;
 
-contract YADQL_storage {
-    uint[1024] data;
+contract Storage {
+  mapping (bytes32 => string) public storg;
 
-    function set(uint x, uint y) public {
-        data[x] = y;
+  function store(bytes32 key, string val) public {
+    storg[key] = val;
+  }
+}
+
+contract yadql_storage {
+  mapping (bytes4 => Storage) public db;
+  
+  function store(bytes4 pubkey, bytes32 key, string val) public {
+    if (db[pubkey] != address(0x0)) {
+      db[pubkey].store(key, val);
+    } else {
+      Storage x = new Storage();
+      db[pubkey] = x;
+      x.store(key, val);
     }
-
-    function get(uint x) public constant returns (uint) {
-        return data[x];
-    }
+  }
 }
