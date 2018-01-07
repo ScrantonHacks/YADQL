@@ -1,6 +1,6 @@
 use std::str;
 use gpgme;
-use gpgme::{Context, Protocol, SigningResult, EncryptionResult, DecryptionResult, VerificationResult, Error};
+use gpgme::{Context, Protocol};
 
 /// # mod crypt
 /// Allows specialized access to RSA functions.
@@ -19,6 +19,7 @@ pub fn sign(clear: &str, key: &str) -> String {
     String::from_utf8(output).unwrap()
 }
 
+#[allow(unused_must_use)]
 pub fn verify(sig: String) -> String {
     //! ## verify(sig: String) -> String
     //! Takes a signature string and verifies it against our known public keys.
@@ -26,7 +27,7 @@ pub fn verify(sig: String) -> String {
     let proto = Protocol::OpenPgp;
     let mut ctx = Context::from_protocol(proto).unwrap();
     let mut output = Vec::new();
-    ctx.verify_opaque(sig, &mut output);
+    ctx.verify_opaque(sig, &mut output); // The unused_must_used is for this... we really don't care about the Result.
     String::from_utf8(output).unwrap()
 }
 
