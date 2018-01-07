@@ -7,8 +7,8 @@ use parser::parser::Parser;
 
 struct KeyVal {
     /// # KeyVal
-    key: i32,
-    val: i32
+    key: String,
+    val: String
 }
 
 pub struct Blockchain {
@@ -78,7 +78,7 @@ impl Blockchain {
                 delete(k);
             },
             YADQL::Update(ref k, ref v) => {
-                update(k, v;
+                update(k, v);
             },
         )
     }
@@ -87,7 +87,7 @@ impl Blockchain {
         //! ## insert(key: &str, value: &str) -> Result<Success, BlockchainError>
         //! Inserts a new value into the blockchain.
         //! Should throw an error if the record already exists.
-        self.memory.push(KeyVal {key, val});
+        self.memory.push(KeyVal { key: key.to_string(), val: val.to_string()});
     }
 
     pub fn delete(&self, key: &str) -> Result<Success, BlockchainError> {
@@ -95,7 +95,7 @@ impl Blockchain {
         //! Marks a record as deleted.
         //! Should fail if the record doesn't exist.
         for x in self.memory.iter() {
-            if x.key == key {
+            if x.key == key.to_string() {
                 self.memory.remove(x);
             }
         }
@@ -106,8 +106,8 @@ impl Blockchain {
         //! Updates a value in the local database and submits to the blockchain.
         //! Should fail if the record doesn't exist.
         for x in self.memory.iter() {
-            if x.key == key {
-                x.value = value;
+            if x.key == key.to_string() {
+                x.val = value.to_string();
             }
         }
     }
@@ -116,6 +116,11 @@ impl Blockchain {
         //! ## read(key: &str) -> Result<Success, BlockchainError>
         //! A method on the Blockchain struct that reads data from memory into the application's context for use. This really just worries about the local mirror of the database; we really don't care about what the blockchain looks like.
         //! Should fail if the record doesn't exist.
-        self.memory[key]
+        for x in self.memory.iter() {
+            if x.key == key.to_string() {
+                let ret = Result<Success, BlockchainError> = Ok(Success { payload: x.value });
+            }
+        }
+        ret
     }
 }
