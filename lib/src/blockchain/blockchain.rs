@@ -65,13 +65,8 @@ impl<'a> Blockchain<'a> {
         //! ## delete(key: &str) -> Result<Success, BlockchainError>
         //! Marks a record as deleted.
         //! Should fail if the record doesn't exist.
-        let ret = for x in self.memory.iter() {
-            if x.key == key.to_string() {
-                self.memory.remove(x);
-                Ok(Success { payload: x.key });
-            }
-        };
-        ret
+        let ind = self.memory.iter().position(|&r| r.key == key).unwrap();
+        self.memory.remove(ind);
     }
 
     pub fn update(&self, key: &str, value: &str) -> Result<Success, BlockchainError> {
