@@ -41,7 +41,7 @@ impl Blockchain {
         //! ## insert(key: &str, value: &str) -> Result<Success, BlockchainError>
         //! Inserts a new value into the blockchain.
         //! Should throw an error if the record already exists.
-        self.memory.push(KeyVal { key: key.to_string(), val: val.to_string() })?;
+        self.memory.push(KeyVal { key: key.to_string(), val: value.to_string() })?;
         Ok(Success { payload: x.val })
     }
 
