@@ -5,7 +5,7 @@ use gpgme::{Context, Protocol, SigningResult, EncryptionResult, DecryptionResult
 /// # mod crypt
 /// Allows specialized access to RSA functions.
 pub fn sign(clear: &str, key: &str) -> String {
-    //! ## sign(clear: &str, key: &str) -> str
+    //! ## sign(clear: &str, key: &str) -> String
     //! Takes plaintext and our public key, and signs the plaintext.
     //! Returns the produced signature.
     let proto = Protocol::OpenPgp;
@@ -20,7 +20,7 @@ pub fn sign(clear: &str, key: &str) -> String {
 }
 
 pub fn verify(sig: String) -> String {
-    //! ## verify(sig: &str) -> str
+    //! ## verify(sig: String) -> String
     //! Takes a signature string and verifies it against our known public keys.
     //! Returns the verified status.
     let proto = Protocol::OpenPgp;
@@ -31,7 +31,7 @@ pub fn verify(sig: String) -> String {
 }
 
 pub fn encrypt(clear: &str, us: &str) -> String {
-    //! ## encrypt(clear: &str, us: &str) -> str
+    //! ## encrypt(clear: &str, us: &str) -> String
     //! Takes a plaintext string and our private key fingerprint, then encrypts the plaintext with our public key.
     //! Returns the encrypted string.
     let proto = Protocol::OpenPgp;
@@ -50,7 +50,7 @@ pub fn encrypt(clear: &str, us: &str) -> String {
 }
 
 pub fn decrypt(cipher: &str) -> String {
-    //! ## decrypt(cipher: &str) -> str
+    //! ## decrypt(cipher: &str) -> String
     //! Takes cipher text and decrypts it using our private key.
     //! Returns the decrypted text.
     let proto = Protocol::OpenPgp;
