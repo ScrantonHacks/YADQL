@@ -14,6 +14,7 @@ serde = "1.0.27"
 serde_derive = "1.0.27"
 regex = "0.2"
 web3 = "0.1.0"
+ethabi = "4.2.0"
 
 [build-dependencies]
 peg = "0.5.4"

@@ -4,6 +4,7 @@ extern crate colored;
 extern crate gpgme;
 extern crate regex;
 extern crate web3;
+extern crate ethabi;
 
 mod core;
 mod parser;
@@ -37,11 +38,11 @@ pub struct Database {
 impl Database {
 
     /// Constructor Function
-    pub fn connect() -> Result<Database, BlockchainError> {
-    //    let blockchain = 
-        Database {
+    pub fn connect(provider: &str) -> Result<Database, BlockchainError> {
+        let blockchain = Blockchain::new("http://localhost:8545");
+        Ok(Database {
             blockchain,
-        }
+        })
     }
 
     // TODO Accept multiple queries at a time
