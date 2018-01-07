@@ -37,7 +37,7 @@ pub struct Database {
 impl Database {
 
     /// Constructor Function
-    pub fn connect(provider: &str) -> Result<Database, BlockchainError> {
+    pub fn connect() -> Result<Database, BlockchainError> {
     //    let blockchain = 
         Database {
             blockchain,

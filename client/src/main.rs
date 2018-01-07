@@ -3,7 +3,7 @@ extern crate yadql;
 use yadql::Database;
 
 fn main() {
-    let db = Database::connect("http://localhost:8485");
+    let db = Database::connect();
     println!("A Test YADQL Client");
     println!("First, we'll insert the value 'x': 'y'.");
     println!("Insert 'x' 'y';");
