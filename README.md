@@ -8,18 +8,22 @@ IoT devices, in and of themselves, present a serious security risk in the manner
 
 ### Components
 Parser
+
 Functions
+
 Rust? (familiar with parser already, just for QL)
+
 Config File for IOT Device (Web3 Provider, ETH acc, etc)
+
 Private Data Security for all IOT Devices
 
 You will need some OpenPGP client (gpg works fine) installed for encryption purposes.
 
 ### Grammar
-Insert [x] [y];
-Delete [x];
-Update [x] [y];
-Read [x];
+```Insert [x] [y];```
+```Delete [x];```
+```Update [x] [y];```
+```Read [x];```
 
 ### Identity
 User identity will be a mechanic by which public keys are connected and assigned to a single user. An identity will be a data structure maintained by the smart contract that essentially logs a list of all public keys associated with an identity.
