@@ -51,11 +51,7 @@ impl Crypt {
         ctx.set_armor(true);
         let mut recipients = Vec::new();
         recipients.push(self.our_key);
-        let keys: Vec<gpgme::Key> = ctx.find_keys(recipients)
-            .unwrap()
-            .filter_map(Result::ok)
-            .filter(|k| k.can_encrypt())
-            .collect();
+        let keys: Vec<gpgme::Key> = ctx.find_keys(recipients).unwrap().filter_map(Result::ok).filter(|k| k.can_encrypt()).collect();
         let mut output = Vec::new();
         ctx.encrypt(&keys, clear, &mut output).expect("encrypting failed");
         String::from_utf8(output).unwrap()
