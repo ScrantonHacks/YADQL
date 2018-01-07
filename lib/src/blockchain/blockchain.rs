@@ -1,5 +1,6 @@
 use blockchain::err::BlockchainError;
 
+use regex::Regex;
 use crypt::crypt::Crypt;
 
 struct KeyVal {
@@ -24,16 +25,58 @@ impl Blockchain {
         }
     }
 
-    pub fn send() {
-        // Apply the operation.
-        // Encrypt/Sign.
-        // Send.
+    pub fn send(&self, operation: &str, key: &str, value: &str) {
+        //! ## send(operation: &str, key: &str, value: &str)
+        //! Applies transactions being sent from this machine.
+        //! It was late when I wrote this... needs fixing bad.
+        match operation (
+            "insert" => {
+                insert(key, value);
+                let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
+                let payload = format!("('operation': 'insert', key: '{}', value: '{}' )", key, value);
+                let crypt_sign = c.sign(c.encrypt(String::from(payload)));
+                // TODO Send crypt_sign to the blockchain.
+            };
+            "delete" => {
+                delete(key);
+                let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
+                let payload = format!("('operation': 'delete', key: '{}', value: '{}' )", key, value);
+                let crypt_sign = c.sign(c.encrypt(String::from(payload)));
+                // TODO Send crypt_sign to the blockchain.
+            };
+            "update" => {
+                update(key, value);
+                let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
+                let payload = format!("('operation': 'update', key: '{}', value: '{}' )", key, value);
+                let crypt_sign = c.sign(c.encrypt(String::from(payload)));
+                // TODO Send crypt_sign to the blockchain.
+            };
+            "read" => {
+                res = read(key)
+            };
+        )
     }
 
-    pub fn recv() {
-        // Retrieve.
-        // Verify/Decrypt.
-        // Apply the operation.
+    pub fn recv(&self) {
+        //! ## recv()
+        //! Applies transactions downloaded to this machine.
+        let c = Crypt::new(String::from("test@radical-yadql.io")); // THIS CANNOT BE THE FINAL EMAIL.
+        let payload = c.decrypt(c.verify(c));
+        // We get a string in the format "('operation': 'update', key: '{}', value: '{}' )"
+        // We want to parse the operation, key, and value out of that.
+        let re = Regex::new(r"^\('operation': '(.{6})', key: ('.+'), value: ('.*') \)$").unwrap();
+        let caps = re.captures(payload).unwrap()
+        match caps.get(0) (
+            "insert" => {
+                insert(caps.get(1), caps.get(2));
+            };
+            "delete" => {
+                delete(caps.get(1));
+            };
+            "update" => {
+                update(caps.get(1), caps.get(2));
+            };
+        )
     }
 
     pub fn insert(&self, key: &str, value: &str) -> Result<Success, BlockchainError> {

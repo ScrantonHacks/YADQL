@@ -2,6 +2,7 @@
 extern crate serde_derive;
 extern crate colored;
 extern crate gpgme;
+extern crate regex;
 
 mod core;
 mod parser;

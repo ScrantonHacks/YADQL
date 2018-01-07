@@ -12,6 +12,7 @@ colored = "1.5.2"
 gpgme = "0.7.0"
 serde = "1.0.27"
 serde_derive = "1.0.27"
+regex = "0.2"
 
 [build-dependencies]
 peg = "0.5.4"
