@@ -7,7 +7,7 @@ use parser::parser::yadql_grammar::ParseError;
 
 #[derive(Debug)]
 pub struct KeywordNotFound {
-    pub v: string,
+    pub v: String,
 }
 
 pub type KeywordNotFoundError = KeywordNotFound;
@@ -81,7 +81,7 @@ impl From<ParseError> for ParserError {
 
 impl From<KeywordNotFoundError> for ParserError {
     fn from(err: KeywordNotFoundError) -> ParserError {
-        ParserError::KeywordNotFoundError(err)
+        ParserError::KeywordNotFound(err)
     }
 }
 

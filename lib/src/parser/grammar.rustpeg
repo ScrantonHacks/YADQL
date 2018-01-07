@@ -5,7 +5,7 @@ key -> String
     = k:$("$"[a-zA-Z0-9_-]+) { k.to_string() }
 
 value -> String
-    = v:$([^;]+ ";") { v.to_string()) }
+    = v:$([^;]+ ";") { v.to_string() }
 
 insert -> super::YADQL
     = "Insert "i k:key " " v:value { super::YADQL::Insert(k, v) }
