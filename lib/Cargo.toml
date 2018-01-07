@@ -1,5 +1,5 @@
 [package]
-name = "YADQL"
+name = "yadql"
 version = "0.1.0"
 authors = [
   "Sean Batzel <romulus108@protonmail.com>",

@@ -14,7 +14,7 @@ fn sign(clear: &str, key: &str) {
     let key = ctx.find_secret_key(key).unwrap();
     ctx.add_signer(&key).unwrap();
     let mut output = Vec::new();
-    let result = ctx.sign(mode, clear, &mut output).expect("signing failed");
+    ctx.sign(mode, clear, &mut output).expect("signing failed")
 }
 
 fn verify(sig: &str) {
@@ -23,7 +23,7 @@ fn verify(sig: &str) {
     //! Returns the verified status.
     let proto = Protocol::OpenPgp;
     let mut ctx = Context::from_protocol(proto).unwrap();
-    let result = ctx.verify_opaque(sig, &mut Vec::new());
+    ctx.verify_opaque(sig, &mut Vec::new())
 }
 
 fn encrypt(clear: &str, us: &str) {
@@ -45,7 +45,7 @@ fn encrypt(clear: &str, us: &str) {
         Vec::new()
     };
     let mut output = Vec::new();
-    ctx.encrypt(&keys, clear, &mut output).expect("encrypting failed");
+    ctx.encrypt(&keys, clear, &mut output).expect("encrypting failed")
 }
 
 fn decrypt(cipher: &str) {
@@ -55,5 +55,5 @@ fn decrypt(cipher: &str) {
     let proto = Protocol::OpenPgp;
     let mut ctx = Context::from_protocol(proto).unwrap();
     let mut output = Vec::new();
-    ctx.decrypt(cipher, &mut output).expect("decrypting failed");
+    ctx.decrypt(cipher, &mut output).expect("decrypting failed")
 }
