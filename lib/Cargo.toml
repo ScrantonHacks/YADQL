@@ -9,6 +9,7 @@ build = "src/build.rs"
 
 [dependencies]
 colored = "1.5.2"
+gpgme = "0.7.0"
 
 [build-dependencies]
 peg = "0.5.4"
