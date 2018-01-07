@@ -19,10 +19,10 @@ struct KeyVal {
     val: String
 }
 
-pub struct Blockchain {
+pub struct Blockchain <'a>{
     /// # struct Blockchain
     pub memory: Vec<KeyVal>,
-    StorageContract: Contract<Http>,
+    StorageContract: Contract<&'a Http>,
 }
 
 pub struct Success {
@@ -30,7 +30,7 @@ pub struct Success {
     pub payload: String
 }
 
-impl Blockchain {
+impl<'a> Blockchain<'a> {
     //! # impl Blockchain
     //! Represents the current state of the blockchain. This honestly shouldn't care if we're submitting or receiving the queries; it should be able to handle upload as well as download. 
     pub fn new(provider: &str) -> Blockchain {
@@ -45,7 +45,7 @@ impl Blockchain {
         let json: &[u8] = include_bytes!("./../compiled/yadql.abi");
         let ethabiC = ethabi::Contract::load(json).unwrap();
         let storg_contract = web3::contract::Contract::new(web3.eth(), cAddr, ethabiC);
-       
+        
         Blockchain {
             StorageContract: storg_contract,
             memory: Vec::new()
@@ -57,7 +57,7 @@ impl Blockchain {
         //! Inserts a new value into the blockchain.
         
         //! Should throw an error if the record already exists.
-        self.memory.push(KeyVal { key: key.to_string(), val: value.to_string() })?;
+        self.memory.push(KeyVal { key: key.to_string(), val: value.to_string() });
         Ok(Success { payload: self.memory[self.memory.len() - 1] })
     }
 

@@ -2,11 +2,11 @@ use blockchain::blockchain::Blockchain;
 use core::keywords::YADQL;
 use crypt::crypt::Crypt;
 
-pub struct Stream {
-    blockchain: Blockchain,
+pub struct Stream<'a> {
+    blockchain: Blockchain<'a>,
 }
 
-impl Stream {
+impl<'a> Stream<'a> {
     pub fn new(provider: &str) -> Stream {
         let blockchain = Blockchain::new(provider);
 
