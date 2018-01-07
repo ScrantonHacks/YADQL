@@ -1,8 +1,8 @@
-
-
 pub struct Blockchain;
 struct Success;
 struct BlockchainError;
+
+use crypt::crypt::*;
 
 impl Blockchain {
     pub fn new() -> Blockchain {

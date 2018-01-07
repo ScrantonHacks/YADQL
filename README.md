@@ -34,7 +34,8 @@ Which is then RSA-encrypted and hashed, and signed by the device. The smart cont
 #### 
 
 ### Immediate Issues
-Performance. It’s doubtful that our first version will have achieved a speed which may be considered acceptable.
+* Performance. It’s doubtful that our first version will have achieved a speed which may be considered acceptable.
 
 ### Future Ideas
-Add multiple layers of identity proof to verify access to an identity from a new device.
+* Add multiple layers of identity proof to verify access to an identity from a new device.
+* Create mobile apps to explore an identity's data on the blockchain.
