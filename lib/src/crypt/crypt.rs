@@ -45,7 +45,7 @@ pub fn encrypt(clear: &str, us: &str) -> String {
                   .filter(|k| k.can_encrypt())
                   .collect();
     let mut output = Vec::new();
-    let buf = ctx.encrypt(&keys, clear, &mut output).expect("encrypting failed");
+    ctx.encrypt(&keys, clear, &mut output).expect("encrypting failed");
     String::from_utf8(output).unwrap()
 }
 
